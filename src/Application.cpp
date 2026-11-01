@@ -1,4 +1,4 @@
-#include <Pit/Application.hpp>
+#include <Pit/Engine/Application.hpp>
 
 using std::cout, std::cerr;
 
@@ -22,20 +22,35 @@ Application::Application(
 {
     this->name = window_name;
 
-    this->win = glfwCreateWindow(width, height, window_name.c_str(), NULL, NULL);
-    if (this->win == NULL)
+    if (!glfwInit())
     {
-        cerr << "Failed to create window\n";
+        cerr << "Failed to initialize GLFW\n";
+        throw std::runtime_error("Failed to initialize GLFW");
+    }
+
+    this->win = glfwCreateWindow(
+        width,
+        height,
+        window_name.c_str(),
+        NULL,
+        NULL
+    );
+
+    if (!win)
+    {
         glfwTerminate();
-        return;
+        cerr << "Failed to create window\n";
+        throw std::runtime_error("Failed to create window");
     }
     glfwMakeContextCurrent(this->win);
 
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-        cerr << "Failed to init GLAD\n";
+        glfwDestroyWindow(win);
+        win = nullptr;
         glfwTerminate();
-        return;
+        cerr << "Failed to initialize GLAD\n";
+        throw std::runtime_error("Failed to initialize GLAD");
     }
 
     cout << "Window created: " << window_name << " (" << width << "x" << height << ")\n";
@@ -44,18 +59,25 @@ Application::Application(
 
 void Application::run()
 {
+    if (!win || !running)
+        return;
+
     while (running && !glfwWindowShouldClose(win))
     {
+        float currentFrame = glfwGetTime();
+        float deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
         glfwPollEvents();
 
-        update();
+        update(deltaTime);
         render();
 
         glfwSwapBuffers(win);
     }
 }
 
-void Application::update()
+void Application::update(float deltaTime)
 {
     // Atualização da engine
 }
