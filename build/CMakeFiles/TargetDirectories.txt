@@ -1,0 +1,3 @@
+/home/joao/Documentos/C++Projects/PitEngine/build/CMakeFiles/PitEngine.dir
+/home/joao/Documentos/C++Projects/PitEngine/build/CMakeFiles/edit_cache.dir
+/home/joao/Documentos/C++Projects/PitEngine/build/CMakeFiles/rebuild_cache.dir
