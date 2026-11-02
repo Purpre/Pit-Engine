@@ -31,7 +31,9 @@ endif()
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/home/joao/Documentos/C++Projects/PitEngine/src/*.cpp")
 set(OLD_GLOB
   "/home/joao/Documentos/C++Projects/PitEngine/src/Application.cpp"
+  "/home/joao/Documentos/C++Projects/PitEngine/src/Camera3D.cpp"
   "/home/joao/Documentos/C++Projects/PitEngine/src/Mesh.cpp"
+  "/home/joao/Documentos/C++Projects/PitEngine/src/Node.cpp"
   "/home/joao/Documentos/C++Projects/PitEngine/src/ShaderManager.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")

@@ -8,34 +8,32 @@
 
 class Application
 {
-public:
+  public:
+	ShaderManager shaderManager;
 
-    ShaderManager shaderManager;
+	static void init();
 
-    static void init();
+	std::string name;
+	GLFWwindow* win = nullptr;
+	bool running = false;
 
-    std::string name;
-    GLFWwindow *win = nullptr;
-    bool running = false;
-    
-    Scene3D* currentScene = nullptr;
+	Scene3D* currentScene = nullptr;
 
-    void setScene(Scene3D* scene)
-    {
-        currentScene = scene;
-    }
+	void setScene(Scene3D* scene)
+	{
+		currentScene = scene;
+	}
 
-    float lastFrame = 0.0f;
+	float lastFrame = 0.0f;
 
-    void run(Mesh* mesh);
+	void run(Mesh* mesh);
 
-    void update(float deltaTime);
-    void render();
+	void update(float deltaTime);
+	void render();
 
-    Application(
-        std::string window_name,
-        int width = 800,
-        int height = 600
-    );
+	std::function<void()> onRenderStart;
+	std::function<void()> onRenderEnd;
+    std::function<void(float)> onUpdate;
 
+	Application(std::string window_name, int width = 800, int height = 600);
 };

@@ -1,4 +1,5 @@
 #include <Pit/Engine/Application.hpp>
+#include <Pit/Nodes/Camera3D.hpp>
 #include <memory>
 
 using std::cout, std::cerr;
@@ -65,21 +66,47 @@ void Application::run(Mesh* mesh)
 		update(deltaTime);
 		render();
 
-		glUseProgram(shaderManager.get("default")->programId);
-
-		mesh->draw();
-
 		glfwSwapBuffers(win);
 	}
 }
 
 void Application::update(float deltaTime)
 {
-	// Atualização da engine
+	// Engine update logic
+
+	if (onUpdate)
+		onUpdate(deltaTime);
 }
 
 void Application::render()
 {
+	if (onRenderStart)
+		onRenderStart();
+
 	glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
+
+	glUseProgram(shaderManager.get("default")->programId);
+	currentScene->currentCamera->setShaderUniforms(shaderManager.get("default")->programId);
+	currentScene->currentCamera->updateCamera();
+
+	unsigned int modelLoc = glGetUniformLocation(shaderManager.get("default")->programId, "model");
+
+	for (const auto& mesh : currentScene->meshes)
+	{
+		glm::mat4 model = glm::mat4(1.0f);
+
+		model = glm::translate(model, mesh->position);
+		model = glm::rotate(model, glm::radians(mesh->rotation.x), {1.0f, 0.0f, 0.0f});
+		model = glm::rotate(model, glm::radians(mesh->rotation.y), {0.0f, 1.0f, 0.0f});
+		model = glm::rotate(model, glm::radians(mesh->rotation.z), {0.0f, 0.0f, 1.0f});
+		model = glm::scale(model, mesh->scale);
+
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		mesh->draw();
+	}
+
+	if (onRenderEnd)
+		onRenderEnd();
 }

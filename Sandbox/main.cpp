@@ -12,25 +12,24 @@ int main()
 
 	Scene3D scene;
 
-	auto* camera = scene.root->addChild<Camera3D>("MainCamera");
+	auto* camera = scene.root->createChild<Camera3D>("MainCamera", 70, 800, 600);
+	camera->position = {0.0f, 0.0f, 0.0f};
+	camera->rotation = {0.0f, -90.0f, 0.0f};
 	scene.setCurrentCamera(camera);
 
-	auto* object = scene.root->addChild<Node3D>("Object");
+	auto* object = scene.root->createChild<Node3D>("Object");
 
-	auto* mesh = object->addChild<Mesh>("Mesh");
+	auto* mesh = object->createChild<Mesh>("Suzanne");
+	mesh->rotation = {0.0f, 0.0f, 0.0f};
 	mesh->setModel("Suzanne.obj");
 
 	app.setScene(&scene);
 
-	for (const auto& child : scene.root->getChildren())
+	app.onUpdate = [mesh](float deltaTime)
 	{
-		std::cout << "Child: " << child->name << std::endl;
-
-		for (const auto& grandchild : child->getChildren())
-		{
-			std::cout << "  Grandchild: " << grandchild->name << std::endl;
-		}
-	}
+		mesh->position.z -= 0.5f * deltaTime;
+		mesh->position.x = 2.0f * sin(glfwGetTime());
+	};
 
 	app.run(mesh);
 

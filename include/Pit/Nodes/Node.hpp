@@ -1,18 +1,26 @@
 #pragma once
 #include <memory>
 #include <string>
+#include <functional>
 #include <vector>
+
+class Mesh;
+
+class Scene3D;
 
 class Node
 {
   protected:
 	std::vector<std::unique_ptr<Node>> children;
 	Node* parent = nullptr;
+	Scene3D* parentScene = nullptr;
+
+	void registerMeshInScene(Mesh* mesh);
 
   public:
 	std::string name;
 
-	Node(std::string name = "Node") : name(std::move(name))
+	Node(std::string name = "Node", Scene3D* scene = nullptr) : name(std::move(name)), parentScene(scene)
 	{
 	}
 
@@ -23,7 +31,7 @@ class Node
 		return children;
 	}
 
-	template <typename T, typename... Args> T* addChild(Args&&... args)
+	template <typename T, typename... Args> T* createChild(Args&&... args)
 	{
 		static_assert(std::is_base_of_v<Node, T>, "T must inherit from Node");
 
@@ -32,19 +40,17 @@ class Node
 		T* ptr = child.get();
 
 		child->parent = this;
+		child->parentScene = this->parentScene;
+		if (auto mesh = dynamic_cast<Mesh*>(child.get()))
+		{
+			registerMeshInScene(mesh);
+		}
 		children.push_back(std::move(child));
 
 		return ptr;
 	}
 
-	Node* getChild(const std::string& name)
-	{
-		for (const auto& child : children)
-		{
-			if (child->name == name)
-				return child.get();
-		}
+	Node* getChild(const std::string& name);
 
-		return nullptr;
-	}
+	void getDescendants(const std::function<void(Node*)>& callback);
 };
