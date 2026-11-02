@@ -10,25 +10,49 @@ const std::string vertex = R"(
 #version 330 core
 
 layout (location = 0) in vec3 aPosition;
+layout (location = 1) in vec3 aNormal;
 
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
 
+out vec3 Normal;
+out vec3 FragPos;
+
 void main()
 {
-    gl_Position = projection * view * model * vec4(aPosition, 1.0);
+    vec4 worldPosition = model * vec4(aPosition, 1.0);
+
+    FragPos = worldPosition.xyz;
+
+    mat3 normalMatrix = transpose(inverse(mat3(model)));
+    Normal = normalize(normalMatrix * aNormal);
+
+    gl_Position = projection * view * worldPosition;
 }
 )";
 
 const std::string fragment = R"(
 #version 330 core
 
+in vec3 Normal;
+
 out vec4 FragColor;
+
+uniform vec3 objectColor;
 
 void main()
 {
-    FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+	vec3 color = vec3(1.0, 1.0, 1.0);
+    vec3 ambientColor = vec3(1.0, 1.0, 1.0);
+    vec3 lightDirection = normalize(vec3(-0.5, -1.0, -0.5));
+
+    float ambient = 0.15;
+    float diffuse = max(dot(normalize(Normal), normalize(-lightDirection)), 0.0);
+
+    vec3 lighting = ambientColor * (ambient + diffuse);
+
+    FragColor = vec4(color * lighting, 1.0);
 }
 )";
 

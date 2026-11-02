@@ -83,8 +83,10 @@ void Application::render()
 	if (onRenderStart)
 		onRenderStart();
 
+	glEnable(GL_DEPTH_TEST);
+
 	glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glUseProgram(shaderManager.get("default")->programId);
 	currentScene->currentCamera->setShaderUniforms(shaderManager.get("default")->programId);
