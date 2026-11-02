@@ -43,6 +43,8 @@ Application::Application(std::string window_name, int width, int height)
 		throw std::runtime_error("Failed to initialize GLAD");
 	}
 
+	shaderManager.registerShader("default", vertex, fragment, false);
+
 	cout << "Window created: " << window_name << " (" << width << "x" << height << ")\n";
 	this->running = true;
 }
@@ -62,6 +64,8 @@ void Application::run(Mesh* mesh)
 
 		update(deltaTime);
 		render();
+
+		glUseProgram(shaderManager.get("default")->programId);
 
 		mesh->draw();
 

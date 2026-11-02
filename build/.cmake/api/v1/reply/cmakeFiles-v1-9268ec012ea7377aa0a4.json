@@ -14,7 +14,8 @@
 			"paths" : 
 			[
 				"/home/joao/Documentos/C++Projects/PitEngine/src/Application.cpp",
-				"/home/joao/Documentos/C++Projects/PitEngine/src/Mesh.cpp"
+				"/home/joao/Documentos/C++Projects/PitEngine/src/Mesh.cpp",
+				"/home/joao/Documentos/C++Projects/PitEngine/src/ShaderManager.cpp"
 			],
 			"recurse" : true
 		}

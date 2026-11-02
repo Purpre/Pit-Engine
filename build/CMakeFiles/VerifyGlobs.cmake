@@ -32,6 +32,7 @@ file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/home/joao/Documentos/C++Proj
 set(OLD_GLOB
   "/home/joao/Documentos/C++Projects/PitEngine/src/Application.cpp"
   "/home/joao/Documentos/C++Projects/PitEngine/src/Mesh.cpp"
+  "/home/joao/Documentos/C++Projects/PitEngine/src/ShaderManager.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")

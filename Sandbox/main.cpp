@@ -22,7 +22,6 @@ int main()
 
 	app.setScene(&scene);
 
-
 	for (const auto& child : scene.root->getChildren())
 	{
 		std::cout << "Child: " << child->name << std::endl;

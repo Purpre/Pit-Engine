@@ -4,10 +4,13 @@
 #include <GLFW/glfw3.h>
 #include <Pit/Nodes/Mesh.hpp>
 #include <Pit/Nodes/Scene3D.hpp>
+#include <Pit/Engine/ShaderManager.hpp>
 
 class Application
 {
 public:
+
+    ShaderManager shaderManager;
 
     static void init();
 

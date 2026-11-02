@@ -67,6 +67,15 @@ build CMakeFiles/PitEngine.dir/src/Mesh.cpp.o: CXX_COMPILER__PitEngine_unscanned
   OBJECT_FILE_DIR = CMakeFiles/PitEngine.dir/src
   TARGET_SUPPORT_DIR = CMakeFiles/PitEngine.dir
 
+build CMakeFiles/PitEngine.dir/src/ShaderManager.cpp.o: CXX_COMPILER__PitEngine_unscanned_Debug /home/joao/Documentos/C++Projects/PitEngine/src/ShaderManager.cpp || cmake_object_order_depends_target_PitEngine
+  CONFIG = Debug
+  DEP_FILE = CMakeFiles/PitEngine.dir/src/ShaderManager.cpp.o.d
+  FLAGS = -g -std=c++20
+  INCLUDES = -I/home/joao/Documentos/C++Projects/PitEngine/include
+  OBJECT_DIR = CMakeFiles/PitEngine.dir
+  OBJECT_FILE_DIR = CMakeFiles/PitEngine.dir/src
+  TARGET_SUPPORT_DIR = CMakeFiles/PitEngine.dir
+
 build CMakeFiles/PitEngine.dir/src/glad.c.o: C_COMPILER__PitEngine_unscanned_Debug /home/joao/Documentos/C++Projects/PitEngine/src/glad.c || cmake_object_order_depends_target_PitEngine
   CONFIG = Debug
   DEP_FILE = CMakeFiles/PitEngine.dir/src/glad.c.o.d
@@ -84,7 +93,7 @@ build CMakeFiles/PitEngine.dir/src/glad.c.o: C_COMPILER__PitEngine_unscanned_Deb
 #############################################
 # Link the static library libPitEngine.a
 
-build libPitEngine.a: CXX_STATIC_LIBRARY_LINKER__PitEngine_Debug CMakeFiles/PitEngine.dir/src/Application.cpp.o CMakeFiles/PitEngine.dir/src/Mesh.cpp.o CMakeFiles/PitEngine.dir/src/glad.c.o
+build libPitEngine.a: CXX_STATIC_LIBRARY_LINKER__PitEngine_Debug CMakeFiles/PitEngine.dir/src/Application.cpp.o CMakeFiles/PitEngine.dir/src/Mesh.cpp.o CMakeFiles/PitEngine.dir/src/ShaderManager.cpp.o CMakeFiles/PitEngine.dir/src/glad.c.o
   CONFIG = Debug
   LANGUAGE_COMPILE_FLAGS = -g
   OBJECT_DIR = CMakeFiles/PitEngine.dir
