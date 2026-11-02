@@ -1,40 +1,39 @@
 #include <iostream>
 
 #include <Pit/Engine/Application.hpp>
-#include <Pit/Nodes/Node.hpp>
-#include <Pit/Nodes/Node3D.hpp>
-#include <Pit/Nodes/Scene3D.hpp>
+#include <Pit/Nodes/Mesh.hpp>
 
 using std::cout;
 
 int main()
 {
-    Application::init();
-    Application app("Game");
+	Application::init();
+	Application app("Game");
 
-    Scene3D scene;
+	Scene3D scene;
 
-    auto camera = std::make_unique<Camera3D>("MainCamera");
-    scene.setCurrentCamera(camera.get());
+	auto* camera = scene.root->addChild<Camera3D>("MainCamera");
+	scene.setCurrentCamera(camera);
 
-    scene.root->addChild(std::move(camera));
+	auto* object = scene.root->addChild<Node3D>("Object");
 
-    auto object = std::make_unique<Node3D>("Object");
-    scene.root->addChild(std::move(object));
+	auto* mesh = object->addChild<Mesh>("Mesh");
+	mesh->setModel("Suzanne.obj");
 
-    app.setScene(&scene);
+	app.setScene(&scene);
 
-    for (const auto& child : scene.root->getChildren())
-    {
-        std::cout << "Child: " << child->name << std::endl;
 
-        for (const auto& grandchild : child->getChildren())
-        {
-            std::cout << "  Grandchild: " << grandchild->name << std::endl;
-        }
-    }
+	for (const auto& child : scene.root->getChildren())
+	{
+		std::cout << "Child: " << child->name << std::endl;
 
-    app.run();
+		for (const auto& grandchild : child->getChildren())
+		{
+			std::cout << "  Grandchild: " << grandchild->name << std::endl;
+		}
+	}
 
-    return 0;
+	app.run(mesh);
+
+	return 0;
 }

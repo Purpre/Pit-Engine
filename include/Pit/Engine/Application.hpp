@@ -2,6 +2,7 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <Pit/Nodes/Mesh.hpp>
 #include <Pit/Nodes/Scene3D.hpp>
 
 class Application
@@ -23,7 +24,7 @@ public:
 
     float lastFrame = 0.0f;
 
-    void run();
+    void run(Mesh* mesh);
 
     void update(float deltaTime);
     void render();

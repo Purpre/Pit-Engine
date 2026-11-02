@@ -13,7 +13,8 @@
 			"expression" : "/home/joao/Documentos/C++Projects/PitEngine/src/*.cpp",
 			"paths" : 
 			[
-				"/home/joao/Documentos/C++Projects/PitEngine/src/Application.cpp"
+				"/home/joao/Documentos/C++Projects/PitEngine/src/Application.cpp",
+				"/home/joao/Documentos/C++Projects/PitEngine/src/Mesh.cpp"
 			],
 			"recurse" : true
 		}

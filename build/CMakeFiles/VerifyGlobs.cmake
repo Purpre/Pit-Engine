@@ -31,6 +31,7 @@ endif()
 file(GLOB_RECURSE NEW_GLOB LIST_DIRECTORIES false "/home/joao/Documentos/C++Projects/PitEngine/src/*.cpp")
 set(OLD_GLOB
   "/home/joao/Documentos/C++Projects/PitEngine/src/Application.cpp"
+  "/home/joao/Documentos/C++Projects/PitEngine/src/Mesh.cpp"
   )
 if(NOT "${NEW_GLOB}" STREQUAL "${OLD_GLOB}")
   message("-- GLOB mismatch!")
