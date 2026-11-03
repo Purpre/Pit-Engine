@@ -55,12 +55,18 @@ void Application::run()
 	if (!win || !running)
 		return;
 
+	glfwSetKeyCallback(win, Input::keyCallback);
+	glfwSetCursorPosCallback(win, Input::mouseCallback);
+
 	while (running && !glfwWindowShouldClose(win))
 	{
 		float currentFrame = glfwGetTime();
 		float deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
+		glfwSetInputMode(win, GLFW_CURSOR, mouseLocked ? GLFW_CURSOR_DISABLED : GLFW_CURSOR_NORMAL);
+
+		Input::update();
 		glfwPollEvents();
 
 		update(deltaTime);

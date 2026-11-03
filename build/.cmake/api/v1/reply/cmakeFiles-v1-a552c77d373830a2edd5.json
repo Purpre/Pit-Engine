@@ -15,6 +15,7 @@
 			[
 				"/home/joao/Documentos/C++Projects/PitEngine/src/Application.cpp",
 				"/home/joao/Documentos/C++Projects/PitEngine/src/Camera3D.cpp",
+				"/home/joao/Documentos/C++Projects/PitEngine/src/InputManager.cpp",
 				"/home/joao/Documentos/C++Projects/PitEngine/src/Mesh.cpp",
 				"/home/joao/Documentos/C++Projects/PitEngine/src/Node.cpp",
 				"/home/joao/Documentos/C++Projects/PitEngine/src/ShaderManager.cpp"

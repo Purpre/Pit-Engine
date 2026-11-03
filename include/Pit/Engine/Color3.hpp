@@ -50,7 +50,6 @@ inline RGB normalize(const RGB rgb)
 
 inline RGB hsvToRgb(const HSV& hsv)
 {
-	// Normaliza para [0,1]
 	HSV n = normalize(hsv);
 
 	float h = n.h;
@@ -100,7 +99,6 @@ inline RGB hsvToRgb(const HSV& hsv)
 		b = x;
 	}
 
-	// Volta para o intervalo 0~255
 	RGB result;
 	result.r = (r + m) * 255.0f;
 	result.g = (g + m) * 255.0f;
@@ -109,11 +107,8 @@ inline RGB hsvToRgb(const HSV& hsv)
 	return result;
 }
 
-// ====================== RGB → HSV ======================
-
 inline HSV rgbToHsv(const RGB& rgb)
 {
-	// Normaliza para [0,1]
 	RGB n = normalize(rgb);
 
 	float r = n.r;
@@ -143,7 +138,7 @@ inline HSV rgbToHsv(const RGB& rgb)
 	else
 		hsv.h = (r - g) / delta + 4.0f;
 
-	hsv.h *= 60.0f; // Converte para graus (0~360)
+	hsv.h *= 60.0f;
 
 	return hsv;
 }

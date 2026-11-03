@@ -41,8 +41,51 @@ int main()
 
 	app.setScene(&scene);
 
-	app.onUpdate = [suzanne, cube, cube2](float deltaTime)
+	float lastMouseX = 0.0f;
+	float lastMouseY = 0.0f;
+
+	const float sensitivity = 0.1f;
+
+	app.mouseLocked = true;
+	app.onUpdate = [=, &app, &lastMouseX, &lastMouseY](float deltaTime)
 	{
+		float cameraSpeed = 5 * deltaTime;
+
+		if (Input::isKeyDown(GLFW_KEY_W))
+			camera->position += camera->front * cameraSpeed;
+
+		if (Input::isKeyDown(GLFW_KEY_S))
+			camera->position -= camera->front * cameraSpeed;
+
+		if (Input::isKeyDown(GLFW_KEY_A))
+			camera->position -= camera->right * cameraSpeed;
+
+		if (Input::isKeyDown(GLFW_KEY_D))
+			camera->position += camera->right * cameraSpeed;
+
+		if (Input::isKeyDown(GLFW_KEY_SPACE))
+			camera->position.y += cameraSpeed;
+
+		else if (Input::isKeyDown(GLFW_KEY_LEFT_SHIFT))
+			camera->position.y -= cameraSpeed;
+
+		if (Input::isKeyPressed(GLFW_KEY_ESCAPE))
+			app.mouseLocked = !app.mouseLocked;
+
+		float deltaX = Input::mouseXPos - lastMouseX;
+		float deltaY = lastMouseY - Input::mouseYPos;
+
+		lastMouseX = Input::mouseXPos;
+		lastMouseY = Input::mouseYPos;
+
+		if (app.mouseLocked)
+		{
+			camera->rotation.y += deltaX * sensitivity;
+			camera->rotation.x += deltaY * sensitivity;
+		}
+
+		camera->rotation.x = glm::clamp(camera->rotation.x, -89.0f, 89.0f);
+
 		cube->rotation.y -= 90.0f * deltaTime;
 		cube2->rotation.y -= 90.0f * deltaTime;
 		suzanne->rotation.y += 90.0f * deltaTime;

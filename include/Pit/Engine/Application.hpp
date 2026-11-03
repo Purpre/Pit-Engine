@@ -4,11 +4,13 @@
 #include <GLFW/glfw3.h>
 #include <Pit/Nodes/Mesh.hpp>
 #include <Pit/Nodes/Scene3D.hpp>
+#include <Pit/Engine/InputManager.hpp>
 #include <Pit/Engine/ShaderManager.hpp>
 
 class Application
 {
   public:
+	bool mouseLocked = false;
 	ShaderManager shaderManager;
 
 	static void init();
@@ -33,7 +35,7 @@ class Application
 
 	std::function<void()> onRenderStart;
 	std::function<void()> onRenderEnd;
-    std::function<void(float)> onUpdate;
+	std::function<void(float)> onUpdate;
 
 	Application(std::string window_name, int width = 800, int height = 600);
 };
