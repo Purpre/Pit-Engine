@@ -26,7 +26,7 @@ class Application
 
 	float lastFrame = 0.0f;
 
-	void run(Mesh* mesh);
+	void run();
 
 	void update(float deltaTime);
 	void render();

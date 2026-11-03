@@ -15,9 +15,11 @@ layout (location = 1) in vec3 aNormal;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
+uniform vec3 aObjectColor;
 
 out vec3 Normal;
 out vec3 FragPos;
+out vec3 ObjectColor;
 
 void main()
 {
@@ -28,6 +30,8 @@ void main()
     mat3 normalMatrix = transpose(inverse(mat3(model)));
     Normal = normalize(normalMatrix * aNormal);
 
+    ObjectColor = aObjectColor;
+
     gl_Position = projection * view * worldPosition;
 }
 )";
@@ -36,14 +40,12 @@ const std::string fragment = R"(
 #version 330 core
 
 in vec3 Normal;
+in vec3 ObjectColor;
 
 out vec4 FragColor;
 
-uniform vec3 objectColor;
-
 void main()
 {
-	vec3 color = vec3(1.0, 1.0, 1.0);
     vec3 ambientColor = vec3(1.0, 1.0, 1.0);
     vec3 lightDirection = normalize(vec3(-0.5, -1.0, -0.5));
 
@@ -52,7 +54,7 @@ void main()
 
     vec3 lighting = ambientColor * (ambient + diffuse);
 
-    FragColor = vec4(color * lighting, 1.0);
+    FragColor = vec4(ObjectColor * lighting, 1.0);
 }
 )";
 

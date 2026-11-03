@@ -50,7 +50,7 @@ Application::Application(std::string window_name, int width, int height)
 	this->running = true;
 }
 
-void Application::run(Mesh* mesh)
+void Application::run()
 {
 	if (!win || !running)
 		return;
@@ -85,7 +85,9 @@ void Application::render()
 
 	glEnable(GL_DEPTH_TEST);
 
-	glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
+	Color3::RGB clearColor = Color3::normalize(currentScene->backgroundColor);
+
+	glClearColor(clearColor.r, clearColor.g, clearColor.b, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glUseProgram(shaderManager.get("default")->programId);
@@ -93,6 +95,7 @@ void Application::render()
 	currentScene->currentCamera->updateCamera();
 
 	unsigned int modelLoc = glGetUniformLocation(shaderManager.get("default")->programId, "model");
+	unsigned int objectColorLoc = glGetUniformLocation(shaderManager.get("default")->programId, "aObjectColor");
 
 	for (const auto& mesh : currentScene->meshes)
 	{
@@ -105,6 +108,9 @@ void Application::render()
 		model = glm::scale(model, mesh->scale);
 
 		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(model));
+
+		Color3::RGB normalizedColor = Color3::normalize(mesh->color);
+		glUniform3f(objectColorLoc, normalizedColor.r, normalizedColor.g, normalizedColor.b);
 
 		mesh->draw();
 	}

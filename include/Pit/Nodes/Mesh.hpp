@@ -1,5 +1,6 @@
 #pragma once
 #include <Pit/Nodes/Node3D.hpp>
+#include <Pit/Engine/Color3.hpp>
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -25,6 +26,8 @@ class Mesh : public Node3D
 	void setupMesh();
 
   public:
+	Color3::RGB color = {255.0f, 255.0f, 255.0f};
+
 	Mesh(std::string name = "Mesh") : Node3D(std::move(name))
 	{
 	}
